@@ -10,11 +10,11 @@ const ballRadius = 8;
 
 // ==== game objects ====
 let leftPaddle = {
-    x: 5, y: 160, dy: 0
+    x: 5, y: 250, dy: 0
 }
 
 let rightPaddle = {
-    x: canvas.width - 15, y: 160, dy: 0
+    x: canvas.width - 15, y: 50, dy: 0
 }
 
 let ball = {
@@ -22,6 +22,7 @@ let ball = {
 }
 
 let isCanvasPaused = false;
+let loopId;
 
 // ==== GAME MECHANICS ====
 
@@ -67,6 +68,7 @@ function resetBall(direction = 1) {
         // player 1 scored -> start ball from left
         ball.x = leftPaddle.x + paddleWidth + ballRadius + 5;
     } else {
+        // start ball from right
         ball.x = rightPaddle.x - ballRadius - 5;
     }
 }
@@ -99,19 +101,58 @@ function checkCollisions() {
 
 function checkScore() {
     if (ball.x < 0) {
+        // opponent scored
         isCanvasPaused = true;
+        resumeAfterPointAdd(-1);
     } else if (ball.x > canvas.width) {
+        // player 1 scored
         isCanvasPaused = true;
+        resumeAfterPointAdd(1);
     }
 }
 
+function resumeAfterPointAdd(direction) {
 
-function gameLoop() {
-    movePaddles();
-    moveBall();
-    draw();
-    // requestAnimationFrame(gameLoop)
+    const resume = (e) => {
+        if (e.target.id === 'p1Btn' || e.target.id === 'p2Btn') {
+            resetBall(direction);
+            isCanvasPaused = false;
+            setScoreButtonsEnabled(false); // disable buttons after point add
+            stopLoop();
+            gameLoop();
+            document.removeEventListener('click', resume);
+        }
+    }
+    document.addEventListener('click', resume);
 }
 
-// start the game
+// ==== GAME LOOP ====
+function update() {
+    if (isGameOver) return;
+
+    movePaddles();
+    moveBall();
+    checkCollisions();
+    checkScore();
+}
+
+function gameLoop() {
+
+    if (!isCanvasPaused) {
+        update();
+        draw();
+        // loopId = requestAnimationFrame(gameLoop);
+    }
+}
+
+function stopLoop() {
+    if (loopId) {
+        cancelAnimationFrame(loopId);
+        loopId = null;
+    }
+}
+
+// ====== INIT GAME =======
+resetBall();
+setScoreButtonsEnabled(false);
 gameLoop();

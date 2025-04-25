@@ -20,7 +20,13 @@ function draw() {
         drawRect(canvas.width / 2 - 1, i, 2, 10, 'white');
     }
 
-    // draw paddles + ball onto canvas
+    // draw line + paddles + ball onto canvas
+    drawRect(
+        0,
+        canvas.height / 2,
+        canvas.width,
+        1,
+        'white');
     drawRect(
         leftPaddle.x,
         leftPaddle.y,

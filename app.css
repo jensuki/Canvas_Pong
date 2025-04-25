@@ -1,5 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
 .canvas-wrapper {
-     background: rgba(83, 178, 216, 0.92);
+    background: rgba(46, 96, 205, 0.92);
+    border-radius: 5px 5px 0 0;
 }
 
 canvas {
