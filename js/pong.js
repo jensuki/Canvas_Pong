@@ -21,6 +21,8 @@ let ball = {
     x: 297, y: 150, dx: 4, dy: 25
 }
 
+let isCanvasPaused = false;
+
 // ==== GAME MECHANICS ====
 
 function movePaddles() {
@@ -93,13 +95,22 @@ function checkCollisions() {
     }
 }
 
+// ===== score check =====
+
+function checkScore() {
+    if (ball.x < 0) {
+        isCanvasPaused = true;
+    } else if (ball.x > canvas.width) {
+        isCanvasPaused = true;
+    }
+}
 
 
 function gameLoop() {
     movePaddles();
     moveBall();
     draw();
-
+    // requestAnimationFrame(gameLoop)
 }
 
 // start the game
