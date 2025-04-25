@@ -69,6 +69,32 @@ function resetBall(direction = 1) {
     }
 }
 
+// ====== collision check ======
+
+function checkCollisions() {
+    // left paddle
+    if (
+        ball.x - ballRadius < leftPaddle.x + paddleWidth && // ball reached front of paddle
+        ball.y > leftPaddle.y && // ball within top of paddle
+        ball.y < leftPaddle.y + paddleHeight // and within bottom of paddle
+    ) {
+        ball.dx *= -1; // flip direction
+        ball.x = leftPaddle.x + paddleWidth + ballRadius; // bounce off immediately
+    }
+
+    // right paddle
+    if (
+        ball.x + ballRadius > rightPaddle.x &&
+        ball.y > rightPaddle.y &&
+        ball.y < rightPaddle.y + paddleHeight
+    ) {
+        ball.dx *= -1;
+        ball.x = rightPaddle.x - ballRadius;
+    }
+}
+
+
+
 function gameLoop() {
     movePaddles();
     moveBall();
