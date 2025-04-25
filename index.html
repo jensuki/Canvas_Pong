@@ -8,6 +8,7 @@
     <title>Canvas Pong</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="app.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -26,10 +27,14 @@
                             <div class="canvas-wrapper">
                                 <canvas id="pongCanvas" width="600" height="400"></canvas>
                                 <!--- instructions --->
-
+                                <div id="instructionsOverlay">
+                                    <div class="player">
+                                        W for <i class="fa-solid fa-arrow-up"></i><br>
+                                        S for <i class="fa-solid fa-arrow-down"></i><br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                         <header class="card-header">
                             <p class="card-header-title is-centered has-text-weight-normal">HTML5 Canvas Pong</p>
                         </header>
