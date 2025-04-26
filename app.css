@@ -57,10 +57,12 @@ i {
 }
 
 .card-footer {
-    justify-content: space-evenly;
-    gap: .6em;
+    justify-content: center;
+    gap: 1em;
+    border-top: none !important;
+    padding-bottom: 20px;
 }
 
 .card-footer button {
-    border-radius: 1em;
+    border-radius: .5em;
 }
