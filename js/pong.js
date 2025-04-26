@@ -88,6 +88,12 @@ function checkCollisions() {
     ) {
         ball.dx *= -1; // flip direction
         ball.x = leftPaddle.x + paddleWidth + ballRadius; // bounce off immediately
+
+        // apply momentum-like variation
+        const paddleCenter = leftPaddle.y + paddleHeight / 2;
+        const diff = ball.y - paddleCenter;
+        const normalized = diff / (paddleHeight / 2);
+        ball.dy = normalized * 5;
     }
 
     // right paddle
@@ -98,6 +104,11 @@ function checkCollisions() {
     ) {
         ball.dx *= -1;
         ball.x = rightPaddle.x - ballRadius;
+
+        const paddleCenter = rightPaddle.y + paddleHeight / 2;
+        const difference = ball.y - paddleCenter; // measure how far ball is from paddle center
+        const normalized = difference / (paddleHeight / 2); // get value between -1 or 1
+        ball.dy = normalized * 5; // mimic vertical velocity
     }
 }
 
