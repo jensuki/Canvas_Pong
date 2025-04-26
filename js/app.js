@@ -117,3 +117,7 @@ document.addEventListener('DOMContentLoaded', handleFirstVisit);
 p1.button.addEventListener('click', () => updateScore(p1, p2));
 p2.button.addEventListener('click', () => updateScore(p2, p1));
 resetBtn.addEventListener('click', reset)
+scoreSelect.addEventListener('change', function () {
+    winningScore = parseInt(this.value);
+    reset();
+})
