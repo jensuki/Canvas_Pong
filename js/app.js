@@ -1,4 +1,4 @@
-// ====== handle scorekeeping, win conditions, setup players, UI ======
+// ===== PLAYER SETUP =====
 
 const p1 = {
     score: 0,
@@ -22,8 +22,7 @@ let isGameOver = false;
 
 //////////////////////////////
 
-// display keyboad control instructions for first visit
-document.addEventListener('DOMContentLoaded', () => {
+function handleFirstVisit() {
     stopLoop();
 
     const overlay = document.querySelector('#instructionsOverlay');
@@ -42,9 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isCanvasPaused = false;
         gameLoop();
     }
-})
-
-////////////////////////
+}
 
 // score updater
 function updateScore(player, opponent) {
@@ -57,6 +54,13 @@ function updateScore(player, opponent) {
     player.display.innerText = player.score;
 }
 
+// disable point buttons while game in loop
+function setScoreButtonsEnabled(enabled) {
+    p1.button.disabled = !enabled;
+    p2.button.disabled = !enabled;
+}
+
+// on player win
 function handleWin(player, opponent) {
     isGameOver = true;
     isCanvasPaused = true;
@@ -81,8 +85,35 @@ function showConfetti() {
         origin: { y: .6 }
     });
 }
-// disable point buttons while game in loop
-function setScoreButtonsEnabled(enabled) {
-    p1.button.disabled = !enabled;
-    p2.button.disabled = !enabled;
+
+// ===== reset functions  ======
+
+function resetGameState() {
+    isGameOver = false;
+    isCanvasPaused = false;
+    stopLoop();
 }
+
+function reset() {
+    resetGameState();
+
+    [p1, p2].forEach(resetPlayer);
+
+    statusMsg.innerText = '';
+    setScoreButtonsEnabled(false);
+    resetBall();
+    gameLoop();
+}
+
+function resetPlayer(player) {
+    player.score = 0;
+    player.display.innerText = 0;
+    player.display.classList.remove('has-text-success', 'has-text-danger');
+    player.button.disabled = false;
+}
+
+// ===== event listeners ======
+document.addEventListener('DOMContentLoaded', handleFirstVisit);
+p1.button.addEventListener('click', () => updateScore(p1, p2));
+p2.button.addEventListener('click', () => updateScore(p2, p1));
+resetBtn.addEventListener('click', reset)

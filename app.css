@@ -2,12 +2,40 @@
     box-sizing: border-box;
 }
 
+header {
+    background: rgb(255, 255, 255, 0.05) !important;
+}
+
 .canvas-wrapper {
     background: rgba(46, 96, 205, 0.92);
     border-radius: 5px 5px 0 0;
+
 }
 
 canvas {
     width: 100%;
     display: block;
+    background: transparent;
+    will-change: transform;
+    transform: translateZ(0);
+    position: relative;
 }
+
+.instructions-overlay {
+    width: 125px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: .85em;
+    border-radius: 8px;
+    opacity: .8;
+    transition: opacity 0.5s ease;
+}
+
+b,
+i {
+    color: rgb(255, 196, 0);
+}
+
