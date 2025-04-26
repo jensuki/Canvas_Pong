@@ -39,3 +39,6 @@ i {
     color: rgb(255, 196, 0);
 }
 
+.hidden {
+    opacity: 0;
+}

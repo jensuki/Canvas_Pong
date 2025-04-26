@@ -71,6 +71,10 @@ function resetBall(direction = 1) {
         // start ball from right
         ball.x = rightPaddle.x - ballRadius - 5;
     }
+    ball.y = canvas.height / 2;
+
+    ball.dx = direction * 6;
+    ball.dy = (Math.random() * 6) - 3;
 }
 
 // ====== collision check ======
@@ -112,7 +116,7 @@ function checkScore() {
 }
 
 function resumeAfterPointAdd(direction) {
-
+    setScoreButtonsEnabled(true);
     const resume = (e) => {
         if (e.target.id === 'p1Btn' || e.target.id === 'p2Btn') {
             resetBall(direction);
@@ -141,7 +145,7 @@ function gameLoop() {
     if (!isCanvasPaused) {
         update();
         draw();
-        // loopId = requestAnimationFrame(gameLoop);
+        loopId = requestAnimationFrame(gameLoop);
     }
 }
 
