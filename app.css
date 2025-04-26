@@ -1,15 +1,13 @@
-* {
+*,
+html {
     box-sizing: border-box;
-}
-
-header {
-    background: rgb(255, 255, 255, 0.05) !important;
 }
 
 .canvas-wrapper {
     background: rgba(46, 96, 205, 0.92);
     border-radius: 5px 5px 0 0;
-
+    position: relative;
+    overflow: hidden;
 }
 
 canvas {
@@ -18,7 +16,18 @@ canvas {
     background: transparent;
     will-change: transform;
     transform: translateZ(0);
-    position: relative;
+}
+
+header {
+    background: rgb(255, 255, 255, 0.05) !important;
+    font-family: monospace;
+    letter-spacing: .2em;
+    font-size: 1.5em;
+}
+
+.card-header p {
+    border: 1px solid rgba(89, 92, 96, 0.22);
+    border-radius: 1px;
 }
 
 .instructions-overlay {
@@ -41,4 +50,17 @@ i {
 
 .hidden {
     opacity: 0;
+}
+
+.select {
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    justify-content: space-evenly;
+    gap: .6em;
+}
+
+.card-footer button {
+    border-radius: 1em;
 }

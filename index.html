@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -36,20 +36,23 @@
                             </div>
                         </div>
                         <header class="card-header">
-                            <p class="card-header-title is-centered has-text-weight-normal">HTML5 Canvas Pong</p>
+                            <p class="card-header-title is-centered">
+                                HTML5
+                                Canvas Pong
+                            </p>
                         </header>
                         <div class="card-content has-text-centered">
                             <div class="content">
                                 <!-- current score -->
                                 <h1 class="title is-1">
-                                    <span id="p1Display">0</span> to <span id="p2Display">0</span>
+                                    <span id="p1Display">0</span> - <span id="p2Display">0</span>
                                 </h1>
                                 <!-- winning player -->
                                 <p id="statusMsg" class="subtitle is-4 has-text-success"></p>
-                                <p class="subtitle">Use buttons below to keep score</p>
 
                                 <!-- select -->
-                                <label for="playTo" class="label is-large is-inline">Winning Point </label>
+                                <label for="playTo" class="label is-large is-inline">Select Winning Score
+                                </label>
                                 <div class="select is-rounded">
                                     <select name="" id="playTo">
                                         <option value="3">3</option>
@@ -62,14 +65,17 @@
                                         <option value="10">10</option>
                                     </select>
                                 </div>
+
+                                <p class="subtitle">Use buttons below to keep score</p>
                             </div>
                         </div>
 
                         <!-- footer buttons -->
                         <footer class="card-footer">
-                            <button class="is-info button card-footer-item" id="p1Btn">+1 For Player 1</button>
-                            <button class="is-info button card-footer-item" id="p2Btn">+1 For Player 2</button>
-                            <button class="is-warning button card-footer-item" id="resetBtn">Reset</button>
+                            <button class="is-link button card-footer-item" id="p1Btn">+1 For Player 1</button>
+                            <button class="is-link button card-footer-item" id="p2Btn">+1 For Player 2</button>
+                            <button class="is-danger button card-footer-item has-text-light"
+                                id="resetBtn">Reset</button>
                         </footer>
                     </div>
                 </div>
@@ -79,9 +85,7 @@
 
     <script src="js/controls.js"></script>
     <script src="js/app.js"></script>
-
     <script src="js/canvas.js"></script>
-
     <script src="js/pong.js"></script>
 </body>
 
