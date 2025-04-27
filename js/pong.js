@@ -153,21 +153,23 @@ function update(deltaTime) {
     }
 }
 
-////// initialize timing values
+////// game physics timing
 
-let lastTime = performance.now();   // record last starting time for first frame
-let accumulator = 0;                // save time passed between frames in bucket
+let lastTime = performance.now();   // last time frame was processed
+let accumulator = 0;                // accumulated leftover time between frames
 const fixedTimestep = 1 / 60;       // always simulate 60 fps
 
 function gameLoop(currentTime = performance.now()) {
     if (isGameOver) return;
+
+    checkFPS(currentTime);
 
     // calculate time passed since last frame (in seconds) and add to bucket
     accumulator += (currentTime - lastTime) / 1000;
     // update last time to now (to measure next frame)
     lastTime = currentTime;
 
-    // while enough time passed to simulate a physics step of 1/60 sec
+    // while enough time passed to simulate one physics step of 1/60 sec
     while (accumulator >= fixedTimestep) {
         update(fixedTimestep);          // update paddle and ball physics using fixed timestep
         accumulator -= fixedTimestep;   // after each physics update, subtract timestep from acc
@@ -177,6 +179,29 @@ function gameLoop(currentTime = performance.now()) {
     loopId = requestAnimationFrame(gameLoop);
 }
 
+////// for FPS checking (ui notice)
+
+let fpsLastTime = performance.now();    // last time we checked fps
+let fpsFrames = 0;                      // # of frames since last fps check
+
+function checkFPS(currentTime) {
+    fpsFrames++;
+    const delta = (currentTime - fpsLastTime) / 1000; // get seconds passed since last fps check
+
+    if (delta >= 0.5) {
+        const realFps = Math.round(fpsFrames / delta);
+        const notice = document.querySelector('#performanceNotice');
+
+        if (realFps < 45) {
+            notice.style.display = 'block';
+        } else {
+            notice.style.display = 'none';
+        }
+
+        fpsFrames = 0;
+        fpsLastTime = currentTime;
+    }
+}
 
 function stopLoop() {
     if (loopId) {
