@@ -28,18 +28,16 @@ function handleFirstVisit() {
     const overlay = document.querySelector('#instructionsOverlay');
     const firstTime = !localStorage.getItem('hasVisited');
 
-    if (firstTime) {
+    if (firstTime && overlay) {
         isCanvasPaused = true;
         setTimeout(() => {
             overlay.classList.add('hidden');
             localStorage.setItem('hasVisited', 'true');
-            isCanvasPaused = false;
-            gameLoop();
+            startGame();
         }, 3500)
     } else {
         overlay?.classList.add('hidden');
-        isCanvasPaused = false;
-        gameLoop();
+        startGame();
     }
 }
 
@@ -115,6 +113,13 @@ function resetPlayer(player) {
     player.display.innerText = 0;
     player.display.classList.remove('has-text-success', 'has-text-danger');
     player.button.disabled = false;
+}
+
+function startGame() {
+    accumulator = 0;
+    lastTime = performance.now();
+    isCanvasPaused = false;
+    gameLoop();
 }
 
 // ===== event listeners ======

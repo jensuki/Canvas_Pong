@@ -68,9 +68,11 @@ i {
 }
 
 #performanceNotice {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease, visibility .5s ease;
     position: relative;
-    top: -20px;
+    top: 0;
     left: 50%;
     max-width: 400px;
     transform: translateX(-50%);
@@ -80,7 +82,6 @@ i {
     font-size: .9em;
     z-index: 10000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    margin: 0 0 10px 0;
 }
 
 .notice-container {

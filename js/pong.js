@@ -188,14 +188,16 @@ function checkFPS(currentTime) {
     fpsFrames++;
     const delta = (currentTime - fpsLastTime) / 1000; // get seconds passed since last fps check
 
-    if (delta >= 0.5) {
+    if (delta >= 0) {
         const realFps = Math.round(fpsFrames / delta);
         const notice = document.querySelector('#performanceNotice');
 
         if (realFps < 45) {
-            notice.style.display = 'block';
+            notice.style.opacity = '1';
+            notice.style.visibility = 'visible';
         } else {
-            notice.style.display = 'none';
+            notice.style.opacity = '0';
+            notice.style.visibility = 'hidden';
         }
 
         fpsFrames = 0;
