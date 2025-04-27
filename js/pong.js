@@ -26,10 +26,10 @@ let loopId;
 
 // ==== GAME MECHANICS ====
 
-function movePaddles() {
+function movePaddles(deltaTime) {
 
     // left paddle (user)
-    leftPaddle.y += leftPaddle.dy;
+    leftPaddle.y += leftPaddle.dy * deltaTime * 60;
 
     // right paddle
     const aiSpeed = 5;
@@ -37,9 +37,9 @@ function movePaddles() {
     const paddleCenter = rightPaddle.y + paddleHeight / 2;
 
     if (ball.y < paddleCenter - errorMargin) {
-        rightPaddle.y -= aiSpeed; // move paddle up
+        rightPaddle.y -= aiSpeed * deltaTime * 60;
     } else if (ball.y > paddleCenter + errorMargin) {
-        rightPaddle.y += aiSpeed; // move paddle down
+        rightPaddle.y += aiSpeed * deltaTime * 60;
     }
 
     // clamp paddles to canvas boundaries
@@ -52,9 +52,9 @@ function clamp(val, min, max) { // force 'val' to stay between min and max
     return Math.max(min, Math.min(max, val));
 }
 
-function moveBall() {
-    ball.x += ball.dx;
-    ball.y += ball.dy;
+function moveBall(deltaTime) {
+    ball.x += ball.dx * deltaTime * 60;
+    ball.y += ball.dy * deltaTime * 60;
 
     // bounce off top and bottom walls
     if (ball.y < ballRadius || ball.y > canvas.height - ballRadius) {
@@ -142,23 +142,41 @@ function resumeAfterPointAdd(direction) {
 }
 
 // ==== GAME LOOP ====
-function update() {
+function update(deltaTime) {
     if (isGameOver) return;
 
-    movePaddles();
-    moveBall();
-    checkCollisions();
-    checkScore();
-}
-
-function gameLoop() {
-
     if (!isCanvasPaused) {
-        update();
-        draw();
-        loopId = requestAnimationFrame(gameLoop);
+        movePaddles(deltaTime);
+        moveBall(deltaTime);
+        checkCollisions();
+        checkScore();
     }
 }
+
+////// initialize timing values
+
+let lastTime = performance.now();   // record last starting time for first frame
+let accumulator = 0;                // save time passed between frames in bucket
+const fixedTimestep = 1 / 60;       // always simulate 60 fps
+
+function gameLoop(currentTime = performance.now()) {
+    if (isGameOver) return;
+
+    // calculate time passed since last frame (in seconds) and add to bucket
+    accumulator += (currentTime - lastTime) / 1000;
+    // update last time to now (to measure next frame)
+    lastTime = currentTime;
+
+    // while enough time passed to simulate a physics step of 1/60 sec
+    while (accumulator >= fixedTimestep) {
+        update(fixedTimestep);          // update paddle and ball physics using fixed timestep
+        accumulator -= fixedTimestep;   // after each physics update, subtract timestep from acc
+    }
+
+    draw(); // draw latest state after all physics updates
+    loopId = requestAnimationFrame(gameLoop);
+}
+
 
 function stopLoop() {
     if (loopId) {

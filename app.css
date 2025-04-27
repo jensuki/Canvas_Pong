@@ -58,7 +58,7 @@ i {
 
 .card-footer {
     justify-content: center;
-    gap: 1em;
+    gap: .5em;
     border-top: none !important;
     padding-bottom: 20px;
 }

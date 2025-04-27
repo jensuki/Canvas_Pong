@@ -102,6 +102,11 @@ function reset() {
     statusMsg.innerText = '';
     setScoreButtonsEnabled(false);
     resetBall();
+
+    // reset timing values to prevent leftover delta from prev game
+    accumulator = 0;
+    lastTime = performance.now();
+
     gameLoop();
 }
 
