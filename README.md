@@ -13,7 +13,9 @@
 
 ---
 
-![Win Animation](images/pp_gif1.gif)
+<p align="center">
+  <img src="images/pp_gif1.gif" alt="Canvas Pong Demo" width="450"/>
+</p>
 
 ---
 
