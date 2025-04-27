@@ -1,4 +1,4 @@
-# Canvas Pong 🎾
+# Canvas Pong 🏓
 
 ### [Live Demo](https://canvaspong.vercel.app/)
 
