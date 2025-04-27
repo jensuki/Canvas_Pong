@@ -17,7 +17,7 @@ function draw() {
 
     // draw center net
     for (let i = 0; i < canvas.height; i += 20.5) {
-        drawRect(canvas.width / 2 - 1, i, 2, 10, 'white');
+        drawRect(canvas.width / 2 - 1, i, 2, 10, 'hsl(34, 100%, 61%)');
     }
 
     // draw line + paddles + ball onto canvas
