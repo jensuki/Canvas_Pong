@@ -1,7 +1,11 @@
 // ====== keyboard controls ========
+/**
+ * update paddle movement for every frame based on the state of 'keys' pressed,
+ * instead of relying on event timing delays from keydown
+ *
+ * */
 
 const keys = {};
-let currentKey = null;
 
 document.addEventListener('keydown', (e) => {
     keys[e.key] = true;
