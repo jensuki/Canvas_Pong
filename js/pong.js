@@ -145,6 +145,8 @@ function resumeAfterPointAdd(direction) {
 function update(deltaTime) {
     if (isGameOver) return;
 
+    updateControls();
+
     if (!isCanvasPaused) {
         movePaddles(deltaTime);
         moveBall(deltaTime);

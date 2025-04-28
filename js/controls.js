@@ -1,21 +1,22 @@
 // ====== keyboard controls ========
 
+const keys = {};
+let currentKey = null;
+
 document.addEventListener('keydown', (e) => {
-    switch (e.key) {
-        case 'w':
-            leftPaddle.dy = -5;
-            break;
-        case 's':
-            leftPaddle.dy = 5;
-            break;
-    }
-})
+    keys[e.key] = true;
+});
 
 document.addEventListener('keyup', (e) => {
-    switch (e.key) {
-        case 'w':
-        case 's':
-            leftPaddle.dy = 0;
-            break;
+    keys[e.key] = false;
+});
+
+function updateControls() {
+    if (keys['w']) {
+        leftPaddle.dy = -5;
+    } else if (keys['s']) {
+        leftPaddle.dy = 5;
+    } else {
+        leftPaddle.dy = 0;
     }
-})
+}
